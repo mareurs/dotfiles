@@ -1,18 +1,49 @@
-set encoding=utf-8
-autocmd! bufwritepost .vimrc source %
-call pathogen#infect()
- 
+set nocompatible
 filetype off
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+" This is the Vundle package, which can be found on GitHub.
+" For GitHub repos, you specify plugins using the
+" 'user/repository' format
+Plugin 'gmarik/vundle'
+
+" We could also add repositories with a ".git" extension
+Plugin 'scrooloose/nerdtree.git'
+
+" To get plugins from Vim Scripts, you can reference the plugin
+" by name as it appears on the site
+" Plugin 'Buffergator'
+
+"Powerline
+"Plugin 'powerline/powerline'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+
+"CtrlP
+Plugin 'kien/ctrlp.vim.git'
+
+"CommandT (CtrlP replacement)
+"Plugin 'wincent/command-t.git'
+
+"Markdown
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
+
+"YouCompleteMe
+Plugin 'Valloric/YouCompleteMe.git'
+
+"Themes
+"Plugin 'sheerun/vim-wombat-scheme.git'
+Plugin 'flazz/vim-colorschemes'
+
+"End vundle call !required
+call vundle#end()
+
+" Now we can turn our filetype functionality back on
 filetype plugin indent on
+
+set encoding=utf-8
 syntax on
-autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-
-let g:html_indent_inctags = "html,body,head,tbody"
-let g:html_indent_script1 = "inc"
-let g:html_indent_style1 = "inc"
-
 
 " General option
 " ===============
@@ -33,7 +64,6 @@ set wildignore+=*/coverage/*
 set nobackup
 set nowritebackup
 set noswapfile
-
 
 " make yank copy to the global system clipboard
 set clipboard=unnamed
@@ -62,7 +92,6 @@ inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
 noremap <Leader>w :update<CR>
 vnoremap <Leader>w <C-C>:update<CR>
 inoremap <Leader>w <C-O>:update<CR>
-      
 
 " Quick quit command
 noremap <Leader>e :quit<CR>
@@ -126,8 +155,7 @@ let g:jedi#related_names_command = "<leader>z"
 
 " Settings for vim-powerline
 " ===========================
-set laststatus=2
-" let g:Powerline_symbols = 'fancy'
+let g:airline#extensions#tabline#enabled = 1
 
 " Settings for vim-markdown
 " ==========================
@@ -166,17 +194,20 @@ imap <C-v> <Esc><C-v>a
 
 " Show trailing whitespace
 " =========================
-autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
-au InsertLeave * match ExtraWhitespace /\s\+$/
+"autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+"au InsertLeave * match ExtraWhitespace /\s\+$/
 map <Leader>x :%s/\s\+$//
 
 " Color scheme
 " =============
 set t_Co=256
-color wombat256mod
+colorscheme matrix
 
 set colorcolumn=80
 highlight ColorColumn ctermbg=233
 
+let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
+let g:ycm_server_python_interpreter = '/usr/bin/python'
+let g:EclimCompletionMethod = 'omnifunc'
 " source ~/.vim/vimrc/vimrc_python.vim
-" source ~/.vim/bundle/pydiction/vimrc_pydiction.vim
+" source ~/.vim/bundle/pydiction/vimrc_pydiction.vimet tabstop=4
